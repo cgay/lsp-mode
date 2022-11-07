@@ -3,11 +3,11 @@ root_file: docs/page/adding-new-language.md
 ---
 # Adding support for languages
 
-## Registering server
+## Registering a server
 
-Here it is the minimal configuration that is needed for new language
+Here is the minimal configuration that is needed for new language
 server registration. Refer to the documentation of `lsp-mode.el` for
-the additional settings supported on registration time.
+the additional settings supported at registration time.
 `lsp-language-id-configuration` must be updated to contain the
 corresponding mode -\> language id - in this case `(python-mode .
 "python")`
@@ -18,7 +18,7 @@ corresponding mode -\> language id - in this case `(python-mode .
   '(...
     (python-mode . "python")
     ...))
-;; if you are adding the support for your language server in separate repo use
+;; if you are adding support for your language server in a separate repo use
 ;; (add-to-list 'lsp-language-id-configuration '(python-mode . "python"))
 
 (lsp-register-client
@@ -27,8 +27,8 @@ corresponding mode -\> language id - in this case `(python-mode .
                   :server-id 'pyls))
 ```
 
-`lsp-mode` is using `lsp-language-id-configuration` to determine what is the
-buffer language. When the `major-mode` is not sufficient to determine the
+`lsp-mode` uses `lsp-language-id-configuration` to determine the
+buffer's language. When the `major-mode` is not sufficient to determine the
 language (e.g. `web-mode` is used for `javascript`, `html`, and `css`) you can put regex.
 
 Here's an example of how to set up a custom language server in your `init.el` file:
@@ -49,7 +49,7 @@ Here's an example of how to set up a custom language server in your `init.el` fi
 
 If the language server supports environment variables to control
 additional behavior, you can register that by using the
-`:environment-fn` function, like the Bash language client does:
+`:environment-fn` option, like the Bash language client does:
 
 ``` elisp
 (lsp-register-client
@@ -68,7 +68,7 @@ settings in a type-safe way. If you change any of those variables,
 restart the language server with `lsp-restart-workspace` for the changes
 to be applied.
 
-Also, if new client support customizing language server path. It's recommended
+Also, if the client supports customizing the language server path, it's recommended
 to make a wrapper function so the user can customize the value even after the
 client has been loaded.
 
@@ -91,10 +91,10 @@ client has been loaded.
 ## Sections
 
 `lsp-mode` provides tools to bridge emacs `defcustom` as a language
-configuration sections properties(see [specification
+configuration sections properties (see [specification
 workspace/configuration](https://microsoft.github.io/language-server-protocol/specification#workspace_configuration)). In addition you may use `lsp-generate-settings`
 from [Generate Settings script](https://github.com/emacs-lsp/lsp-mode/blob/master/scripts/lsp-generate-settings.el) to generate `lsp-defcustom` from `package.json`
-VScode plugin manifest. Example:
+VS Code plugin manifest. Example:
 
 ``` elisp
 (defcustom-lsp lsp-foo-language-server-property "bar"
